@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """a type annotated function"""
 from typing import Iterable, Sequence, Tuple, List
 
