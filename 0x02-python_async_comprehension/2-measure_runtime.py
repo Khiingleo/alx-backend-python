@@ -14,13 +14,13 @@ async def measure_runtime() -> float:
     an async comprehensing over async_generator,
     then return the 10 random numbers.
     """
-    start_time = time.perf_counter()
+    start_time = time.time()
     await asyncio.gather(
         async_comprehension(),
         async_comprehension(),
         async_comprehension(),
         async_comprehension(),
     )
-    end_time = time.perf_counter()
+    end_time = time.time()
 
     return end_time - start_time
