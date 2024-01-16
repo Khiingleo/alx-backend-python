@@ -2,10 +2,10 @@
 """An asynchronous generator function"""
 import asyncio
 import random
-from typing import AsyncGenerator
+from typing import Generator
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_generator() -> Generator[float, None, None]:
     """
     aynchronous generator function that takes in no argument and
     loops ten(10) times, each time it asynchronously waits 1 second
