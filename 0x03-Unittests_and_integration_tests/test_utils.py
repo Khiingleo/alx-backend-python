@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """ a unittest module TestAccessNestedMap """
 import unittest
-from utils import access_nested_map
+from utils import access_nested_map, get_json
+from unittest.mock import patch, Mock
 from parameterized import parameterized
 
 
@@ -35,3 +36,28 @@ class TestAccessNestedMap(unittest.TestCase):
         with self.assertRaises(exception) as context:
             access_nested_map(nested_map, path)
         self.assertIn(expected_except_message, str(context.exception))
+
+
+class TestGetJson(unittest.TestCase):
+    """ Test cases for get_json """
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False}),
+    ])
+    @patch('requests.get')
+    def test_get_json(self, test_url, test_payload, mock_get):
+        """
+        test to check for correct output
+        """
+        # create a mock object for the request.get method
+        mock_response = Mock()
+        mock_response.json.return_value = test_payload
+
+        mock_get.return_value = mock_response
+
+        # calling get_json function
+        result = get_json(test_url)
+        # assert that requests.get was called only once with test_url arg
+        mock_get.assert_called_once_with(test_url)
+        # assert that result is equal to expected test_payload
+        self.assertEqual(result, test_payload)
